@@ -499,19 +499,17 @@ socket.on('userLeft', (data) => {
 
 // Load canvas on join
 socket.on('loadCanvas', (data) => {
-  if (canvas) {
-    setupCanvas(data.diagram || 'mandala');
-    diagramType.value = data.diagram || 'mandala';
-    
-    // Apply all colored regions
-    data.coloredRegions.forEach(item => {
-      if (regions[item.regionId]) {
-        regions[item.regionId].color = item.color;
-      }
-    });
-    
-    redrawCanvas();
-  }
+  setupCanvas(data.diagram || 'mandala');
+  diagramType.value = data.diagram || 'mandala';
+  
+  // Apply all colored regions
+  data.coloredRegions.forEach(item => {
+    if (regions[item.regionId]) {
+      regions[item.regionId].color = item.color;
+    }
+  });
+  
+  redrawCanvas();
 });
 
 // Remote fill region
@@ -560,16 +558,11 @@ socket.on('disconnect', () => {
 // Helper Functions
 
 function toggleSections() {
-  joinSection.classList.toggle('hidden');
-  appSection.classList.toggle('hidden');
+  joinSection.classList.add('hidden');
+  appSection.classList.remove('hidden');
   
   currentRoomSpan.textContent = currentRoomId;
   currentUserSpan.textContent = currentUsername;
-  
-  // Setup canvas after showing app section
-  setTimeout(() => {
-    setupCanvas('mandala');
-  }, 100);
 }
 
 function addMessage(username, message) {
@@ -622,9 +615,11 @@ function updateUsersList() {
   });
 }
 
-// Initialize on join room
-socket.on('userJoined', () => {
-  if (currentUsername && currentRoomId) {
+// Initialize on successful join
+socket.on('joinSuccess', (data) => {
+  if (data.roomId) {
+    currentRoomId = data.roomId;
+    currentUsername = data.username || currentUsername;
     toggleSections();
   }
 });

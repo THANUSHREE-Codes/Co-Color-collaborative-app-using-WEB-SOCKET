@@ -57,6 +57,12 @@ io.on('connection', (socket) => {
       users: rooms[roomId].users
     });
 
+    // Tell the joining socket that their join succeeded
+    socket.emit('joinSuccess', {
+      username: username,
+      roomId: roomId
+    });
+
     // Send current canvas state (diagram and colored regions) to the new user
     socket.emit('loadCanvas', {
       diagram: rooms[roomId].diagram,
