@@ -1,0 +1,14 @@
+node_modules/
+npm-debug.log
+.DS_Store
+*.env
+.idea/
+.vscode/
+dist/
+build/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/

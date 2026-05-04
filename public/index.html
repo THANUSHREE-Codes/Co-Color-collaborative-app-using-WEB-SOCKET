@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-Color - Collaborative Canvas & Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🎨 Co-Color</h1>
+            <p class="subtitle">Real-Time Collaborative Canvas & Chat</p>
+        </header>
+
+        <!-- Join Room Section -->
+        <div id="joinSection" class="join-section">
+            <div class="join-form">
+                <h2>Join a Room</h2>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="roomId">Room ID:</label>
+                    <input type="text" id="roomId" placeholder="Enter or create a room ID" required>
+                </div>
+                <button id="joinBtn" class="btn btn-primary">Join Room</button>
+            </div>
+        </div>
+
+        <!-- Main Application Section -->
+        <div id="appSection" class="app-section hidden">
+            <div class="info-bar">
+                <div class="room-info">
+                    <span><strong>Room:</strong> <span id="currentRoom"></span></span>
+                    <span><strong>User:</strong> <span id="currentUser"></span></span>
+                    <span><strong>Users Online:</strong> <span id="userCount">0</span></span>
+                </div>
+                <button id="leaveBtn" class="btn btn-secondary">Leave Room</button>
+            </div>
+
+            <div class="main-content">
+                <!-- Canvas Section -->
+                <div class="canvas-section">
+                    <div class="section-header">
+                        <h3>🎨 Drawing Canvas</h3>
+                        <button id="clearCanvasBtn" class="btn btn-danger">Clear Drawing</button>
+                    </div>
+
+                    <div class="diagram-selector">
+                        <label for="diagramType">Select Diagram:</label>
+                        <select id="diagramType">
+                            <option value="mandala">🌟 Mandala Pattern</option>
+                            <option value="circle">⭕ Circular Segments</option>
+                            <option value="hexagon">⬡ Hexagon Grid</option>
+                            <option value="star">⭐ Star Pattern</option>
+                            <option value="geometric">🔷 Geometric Grid</option>
+                            <option value="flower">🌸 Flower Pattern</option>
+                            <option value="triangle">△ Triangle Grid</option>
+                            <option value="wave">〰️ Wave Pattern</option>
+                        </select>
+                    </div>
+                    
+                    <div id="canvas" class="canvas"></div>
+                    
+                    <div class="color-picker-section">
+                        <label for="colorPicker">Select Color:</label>
+                        <input type="color" id="colorPicker" value="#3498db">
+                        <span id="colorValue">#3498db</span>
+                    </div>
+                </div>
+
+                <!-- Chat Section -->
+                <div class="chat-section">
+                    <div class="section-header">
+                        <h3>💬 Chat</h3>
+                    </div>
+                    <div id="chatMessages" class="chat-messages"></div>
+                    <div class="chat-input-wrapper">
+                        <input 
+                            type="text" 
+                            id="messageInput" 
+                            placeholder="Type a message..."
+                            autocomplete="off"
+                        >
+                        <button id="sendBtn" class="btn btn-primary">Send</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users List -->
+            <div class="users-panel">
+                <h4>👥 Users in Room</h4>
+                <div id="usersList" class="users-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>
